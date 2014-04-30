@@ -22,14 +22,11 @@
     <%= f.submit class: 'btn' %>
   <% end %>
 
-
-  <% users_array = User.all.map { |user| [user.email, user.id] } %>
-  <% users_array.delete_if { |user| user[0] == current_user.email } %>
-  <% if !users_array.empty? %>
+  <% if !possible_viewers(@project).empty? %>
     <%= form_for @project_user, html: {class: 'form-inline'} do |f| %>
       <%= f.hidden_field :project_id, :input_html => { :value => @project.id } %>
       <%= f.hidden_field :role, :input_html => { :value => ProjectUser::ROLE[:viewer] } %>
-      <%= select_tag(:user_id, options_for_select(users_array)) %>
+      <%= select_tag(:user_id, options_for_select(possible_viewers(@project))) %>
       <%= f.submit 'Add Viewer', class: 'btn' %>
     <% end %>
   <% end %>

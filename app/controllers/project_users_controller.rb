@@ -3,7 +3,7 @@ class ProjectUsersController < ApplicationController
     @project_user = ProjectUser.new(project_user_params)
     @project_user.user_id = params[:user_id]
     if @project_user.save
-      redirect_to project_url(id: @project_user.project_id)
+      redirect_to project_url(id: @project_user.project_id), notice: 'Viewer successfully added'
     end
   end
 
