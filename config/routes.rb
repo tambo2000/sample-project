@@ -1,6 +1,11 @@
 ProjectManager::Application.routes.draw do
+  get "project_users/create"
   devise_for :users
-  resources :projects
+  resources :projects do
+    resources :tasks, :only => :index
+  end
+  resources :tasks
+  resources :project_users, :only => :create
   root to: 'pages#home'
 
 
