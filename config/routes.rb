@@ -1,4 +1,7 @@
 ProjectManager::Application.routes.draw do
+  get "registrations/create"
+  get "registrations/update"
+  get "registrations/new"
   get "project_users/create"
   devise_for :users
   resources :projects do
