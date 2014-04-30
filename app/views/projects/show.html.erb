@@ -13,7 +13,7 @@
   </ul>
 </p>
 
-<% if @project.owners.include?(current_user) || current_user.role == User::ROLE[:admin] %>
+<% if @project.owners.include?(current_user) || admin? %>
   <%= form_for @task do |f| %>
     <%= f.hidden_field :project_id, :input_html => { :value => @project.id } %>
     Task name: <%= f.text_field :name %>
