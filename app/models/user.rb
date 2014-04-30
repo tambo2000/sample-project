@@ -18,14 +18,4 @@ class User < ActiveRecord::Base
     "#{fname} #{lname}"
   end
 
-  # def projects
-  #   if current_user.role == User::ROLE[:admin]
-  #     Project.all
-  #   else
-  #     user_projects
-  #   end
-  # end
-
-
-
 end
