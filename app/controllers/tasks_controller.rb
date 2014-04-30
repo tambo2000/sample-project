@@ -9,7 +9,7 @@ class TasksController < ApplicationController
   def create
     @task = Task.create(task_params)
     if @task.save
-      redirect_to project_url(@task.project_id)
+      redirect_to project_url(@task.project_id), notice: 'Task was successfully created.'
     end
   end
 
@@ -23,7 +23,7 @@ class TasksController < ApplicationController
       @task = Task.new(task_params)
       @project = Project.find(@task.project_id)
       if !@project.owners.include?(current_user)
-        redirect_to projects_url(current_user)
+        redirect_to projects_url(current_user), notice: 'You are not authorized to modify this task'
       end
     end
 
@@ -31,7 +31,7 @@ class TasksController < ApplicationController
       @task = Task.new(task_params)
       @project = Project.find(@task.project_id)
       if !@project.viewers.include?(current_user)
-        redirect_to projects_url(current_user)
+        redirect_to projects_url(current_user), notice: 'You are not authorized to view this task'
       end
     end
 end

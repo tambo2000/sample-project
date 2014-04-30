@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Project Name:</strong>
   <%= @project.name %>
 </p>
 <p>
@@ -11,14 +11,14 @@
       <li><%= link_to task.name, task_url(task) %>, Difficulty Level: <%= task.difficulty_level %></li>
     <% end %>
   </ul>
-</p>
+</p><br>
 
 <% if @project.owners.include?(current_user) || admin? %>
-  <%= form_for @task do |f| %>
+  <%= form_for @task, html: {class: 'form-inline'} do |f| %>
     <%= f.hidden_field :project_id, :input_html => { :value => @project.id } %>
-    Task name: <%= f.text_field :name %>
-    Description: <%= f.text_area :description %>
-    Difficulty: <%= f.text_field :difficulty_level %>
+    <%= f.text_field :name, placeholder: 'Task name' %>
+    <%= f.text_area :description, placeholder: 'Description', rows: '1' %>
+    <%= f.text_field :difficulty_level, placeholder: 'Difficulty(integer value)' %>
     <%= f.submit class: 'btn' %>
   <% end %>
 
@@ -26,7 +26,7 @@
   <% users_array = User.all.map { |user| [user.email, user.id] } %>
   <% users_array.delete_if { |user| user[0] == current_user.email } %>
   <% if !users_array.empty? %>
-    <%= form_for @project_user do |f| %>
+    <%= form_for @project_user, html: {class: 'form-inline'} do |f| %>
       <%= f.hidden_field :project_id, :input_html => { :value => @project.id } %>
       <%= f.hidden_field :role, :input_html => { :value => ProjectUser::ROLE[:viewer] } %>
       <%= select_tag(:user_id, options_for_select(users_array)) %>

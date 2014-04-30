@@ -99,14 +99,14 @@ class ProjectsController < ApplicationController
     def authorize_edit
       @project = Project.find(params[:id])
       if !@project.owners.include?(current_user)
-        redirect_to projects_url(current_user)
+        redirect_to projects_url(current_user), notice: 'You are not authorized to modify this project'
       end
     end
 
     def authorize_view
       @project = Project.find(params[:id])
       if !@project.viewers.include?(current_user)
-        redirect_to projects_url(current_user)
+        redirect_to projects_url(current_user), notice: 'You are not authorized to view this project'
       end
     end
 end
