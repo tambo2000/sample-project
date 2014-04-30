@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :project_users
-  has_many :user_projects, class_name: 'Project', through: :project_users, uniq: true
+  has_many :projects, through: :project_users, uniq: true
 
 
   ROLE = {
@@ -18,13 +18,13 @@ class User < ActiveRecord::Base
     "#{fname} #{lname}"
   end
 
-  def projects
-    if current_user.role == User::ROLE[:admin]
-      Project.all
-    else
-      user_projects
-    end
-  end
+  # def projects
+  #   if current_user.role == User::ROLE[:admin]
+  #     Project.all
+  #   else
+  #     user_projects
+  #   end
+  # end
 
 
 
